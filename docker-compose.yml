@@ -1,0 +1,38 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    platform: linux/amd64
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - mysql_data_topilog:/var/lib/mysql 
+    ports:
+      - 3308:3306
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    container_name: topilog_container
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/topilog
+      - bundle_data_topilog:/usr/local/bundle:cached  
+      - node_modules_topilog:/app/node_modules  
+    environment:
+      TZ: Asia/Tokyo
+      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+      - chrome
+  chrome:
+    image: seleniarm/standalone-chromium:121.0
+    ports:
+      - 4445:4444
+volumes:
+  mysql_data_topilog:
+  bundle_data_topilog:
+  node_modules_topilog:
