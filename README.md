@@ -439,3 +439,6 @@ Notionが「事実を確認する場所」であるのに対し、
 
   ### 画面遷移図
 Figma：https://www.figma.com/design/q1ciNs5vM2cP9wc8Fwnqhl/%E5%8D%92%E6%A5%AD%E5%88%B6%E4%BD%9C-%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=oLzgvIIqkfsB8ymh-1
+
+### ER図
+diagram：https://drive.google.com/file/d/1n2Ht8jTVeCyI7KIIlYRztDdAwRBeDEqA/view?usp=sharing
