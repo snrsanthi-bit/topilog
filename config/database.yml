@@ -2,18 +2,22 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: topilog_development
   username: postgres
   password: password
   host: db
   port: 5432
 
-development:
-  <<: *default
-  database: topilog_development
-
 test:
   <<: *default
   database: topilog_test
+  username: postgres
+  password: password
+  host: db
+  port: 5432
 
 production:
   <<: *default
