@@ -11,6 +11,7 @@
 <% if user_signed_in? %>
   ログイン中
   <%= link_to "イベント作成", new_event_path %>
+  <%= link_to "イベント一覧", events_path %>
 <% else %>
   未ログイン
 <% end %>
