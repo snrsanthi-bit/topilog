@@ -13,6 +13,12 @@ class EventsController < ApplicationController
     end
   end
 
+  def index
+    @events = current_user.events
+ end
+
+
+
   private
 
   def event_params

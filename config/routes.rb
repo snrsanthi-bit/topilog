@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   devise_for :users
   root "static_pages#top"
 
-  resources :events, only: [:new, :create]
+  resources :events, only: [:new, :create, :index, :show]
 end
