@@ -4,4 +4,7 @@
   タイトル: <%= @event.title %>
 </p>
 
+<%= link_to "編集", edit_event_path(@event) %>
+<%= button_to "削除", @event, method: :delete %>
+
 <%= link_to "一覧へ戻る", events_path %>

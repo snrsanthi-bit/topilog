@@ -20,6 +20,26 @@ class EventsController < ApplicationController
   def show
     @event = current_user.events.find(params[:id])
   end
+
+  def edit
+    @event = current_user.events.find(params[:id])
+  end
+
+  def update
+    @event = current_user.events.find(params[:id])
+
+    if @event.update(event_params)
+      redirect_to @event, notice: "イベントを更新しました"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @event = current_user.events.find(params[:id])
+    @event.destroy
+    redirect_to events_path, notice: "イベントを削除しました"
+  end
   
   private
 
