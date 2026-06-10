@@ -4,7 +4,41 @@
   タイトル: <%= @event.title %>
 </p>
 
+<h2>ログ投稿</h2>
+
+<%= form_with model: [@event, @message] do |f| %>
+  <div>
+    <%= f.label :speaker_name, "発言者" %>
+    <%= f.text_field :speaker_name %>
+  </div>
+
+  <div>
+    <%= f.label :content, "発言内容" %>
+    <%= f.text_area :content %>
+  </div>
+
+  <div>
+    <%= f.label :posted_at, "発言日時" %>
+    <%= f.datetime_local_field :posted_at %>
+  </div>
+
+  <%= f.submit "投稿" %>
+<% end %>
+
+<h2>ログ一覧</h2>
+
+<% @event.messages.each do |message| %>
+  <div>
+    <p><%= message.speaker_name %></p>
+    <p><%= message.content %></p>
+    <p><%= message.posted_at %></p>
+  </div>
+<% end %>
+
 <%= link_to "編集", edit_event_path(@event) %>
-<%= button_to "削除", @event, method: :delete %>
+<%= button_to "削除",
+              @event,
+              method: :delete,
+              form: { data: { turbo_confirm: "本当に削除しますか？" } } %>
 
 <%= link_to "一覧へ戻る", events_path %>
