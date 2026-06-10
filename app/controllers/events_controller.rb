@@ -19,6 +19,7 @@ class EventsController < ApplicationController
 
   def show
     @event = current_user.events.find(params[:id])
+    @message = Message.new
   end
 
   def edit
