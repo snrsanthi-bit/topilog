@@ -4,25 +4,12 @@
   タイトル: <%= @event.title %>
 </p>
 
-<h2>ログ投稿</h2>
+<h2>ログ貼り付け</h2>
 
-<%= form_with model: [@event, @message] do |f| %>
-  <div>
-    <%= f.label :speaker_name, "発言者" %>
-    <%= f.text_field :speaker_name %>
-  </div>
+<%= form_with url: event_messages_path(@event) do %>
+  <%= text_area_tag :log_text %>
 
-  <div>
-    <%= f.label :content, "発言内容" %>
-    <%= f.text_area :content %>
-  </div>
-
-  <div>
-    <%= f.label :posted_at, "発言日時" %>
-    <%= f.datetime_local_field :posted_at %>
-  </div>
-
-  <%= f.submit "投稿" %>
+  <%= submit_tag "取り込み" %>
 <% end %>
 
 <h2>ログ一覧</h2>

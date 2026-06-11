@@ -1,19 +1,12 @@
 class MessagesController < ApplicationController
   def create
     @event = current_user.events.find(params[:event_id])
-    @message = @event.messages.build(message_params)
 
-    if @message.save
-      redirect_to @event, notice: "ログを投稿しました"
-    else
-      redirect_to @event, alert: "ログ投稿に失敗しました"
-    end
-  end
+    log_text = params[:log_text]
 
-  private
+    Rails.logger.debug "===== LOG TEXT ====="
+    Rails.logger.debug log_text
 
-  def message_params
-    params.require(:message)
-          .permit(:speaker_name, :content, :posted_at)
+    redirect_to @event
   end
 end
