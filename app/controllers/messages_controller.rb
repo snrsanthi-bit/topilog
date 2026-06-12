@@ -26,25 +26,24 @@ class MessagesController < ApplicationController
       speaker_name, posted_at_text = header.split(" — ", 2)
       content = block.lines.drop(1).join
 
-      posted_at = nil
-
+      posted_at = 
       if posted_at_text.match?(/^\d{4}\/\d{2}\/\d{2}/)
-        posted_at = Time.zone.parse(posted_at_text)
+        Time.zone.parse(posted_at_text)
+
+      elsif posted_at_text.match?(/^昨日\s\d{1,2}:\d{2}$/)
+        time_text = posted_at_text.delete_prefix("昨日 ")
+        Time.zone.parse("#{Date.yesterday} #{time_text}")
+
+      else 
+        Time.zone.parse("#{Date.current} #{posted_at_text}")
       end
 
-
-      Rails.logger.debug "===== SPEAKER ====="
-      Rails.logger.debug speaker_name
-
-      Rails.logger.debug "===== POSTED_AT_TEXT ====="
-      Rails.logger.debug posted_at_text
-
-      Rails.logger.debug "===== POSTED_AT ====="
-      Rails.logger.debug posted_at
-
-      Rails.logger.debug "===== CONTENT ====="
-      Rails.logger.debug content
-
+      @event.messages.create!(
+        speaker_name: speaker_name,
+        content: content,
+        posted_at: posted_at
+        )
+      
     end
     redirect_to @event
   end
