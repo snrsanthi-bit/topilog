@@ -4,6 +4,20 @@
   タイトル: <%= @event.title %>
 </p>
 
+<h2>話題一覧</h2>
+
+<% @event.topics.each do |topic| %>
+  <div>
+    <strong><%= topic.name %></strong>
+
+    <% if topic.learning? %>
+      （学び）
+    <% else %>
+      （困りごと）
+    <% end %>
+  </div>
+<% end %>
+
 <h2>ログ貼り付け</h2>
 
 <%= form_with url: event_messages_path(@event) do %>
@@ -28,4 +42,6 @@
               method: :delete,
               form: { data: { turbo_confirm: "本当に削除しますか？" } } %>
 
+
+<%= link_to "話題登録", new_event_topic_path(@event) %>
 <%= link_to "一覧へ戻る", events_path %>
