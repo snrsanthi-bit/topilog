@@ -37,13 +37,12 @@ class MessagesController < ApplicationController
       else 
         Time.zone.parse("#{Date.current} #{posted_at_text}")
       end
-
-      @event.messages.create!(
+        message = @event.messages.create!(  
         speaker_name: speaker_name,
         content: content,
         posted_at: posted_at
-        )
-      
+      )
+      message.match_topics!
     end
     redirect_to @event
   end
