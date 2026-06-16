@@ -1,0 +1,18 @@
+<h1>話題登録</h1>
+
+<%= form_with model: [@event, @topic] do |f| %>
+  <div>
+    <%= f.label :name, "話題名" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :category, "分類" %>
+    <%= f.select :category, [
+      ["学び", "learning"],
+      ["困りごと", "trouble"]
+    ] %>
+  </div>
+
+  <%= f.submit "登録" %>
+<% end %>
