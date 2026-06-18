@@ -9,9 +9,16 @@ class Message < ApplicationRecord
   validates :posted_at, presence: true
 
   def match_topics!
+     normalized_content = normalize(content)
     event.topics.each do |topic|
-      next unless content.include?(topic.name)
+      next unless normalized_content.include?(normalize(topic.name))
       topic_messages.find_or_create_by!(topic: topic)
     end
   end
+
+  private
+
+    def normalize(text)
+      text.to_s.unicode_normalize(:nfkc).downcase
+    end
 end
