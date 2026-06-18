@@ -8,7 +8,7 @@
 
 <% @event.topics.each do |topic| %>
   <div>
-    <strong><%= topic.name %></strong>
+    <%= link_to topic.name, event_topic_path(@event, topic) %>
 
     <% if topic.learning? %>
       （学び）

@@ -9,10 +9,16 @@ class TopicsController < ApplicationController
     @topic = @event.topics.build(topic_params)
 
     if @topic.save
+      @event.messages.find_each(&:match_topics!)
       redirect_to @event, notice: "話題を登録しました"
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @event = current_user.events.find(params[:event_id])
+    @topic = @event.topics.find(params[:id])
   end
 
   private

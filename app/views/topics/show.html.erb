@@ -1,0 +1,16 @@
+<h1><%= @topic.name %></h1>
+
+<h2>関係者</h2>
+
+<% @topic.messages.pluck(:speaker_name).uniq.each do |speaker| %>
+  <p><%= speaker %></p>
+<% end %>
+
+<h2>関連発言</h2>
+
+<% @topic.messages.each do |message| %>
+  <div>
+    <p><%= message.speaker_name %></p>
+    <p><%= message.content %></p>
+  </div>
+<% end %>
