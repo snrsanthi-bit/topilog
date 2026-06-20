@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:show]
+  
   def new
     @event = Event.new
   end
@@ -18,7 +20,7 @@ class EventsController < ApplicationController
  end
 
   def show
-    @event = current_user.events.find(params[:id])
+    @event = Event.find(params[:id])
     @message = Message.new
   end
 

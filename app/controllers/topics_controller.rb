@@ -17,7 +17,7 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @event = current_user.events.find(params[:event_id])
+    @event = Event.find(params[:event_id])
     @topic = @event.topics.find(params[:id])
   end
 
