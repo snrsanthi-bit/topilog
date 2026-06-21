@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show]
+  skip_before_action :authenticate_user!, only: [:index, :shared_show]
   
   def new
     @event = Event.new
@@ -16,12 +16,17 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = current_user.events
+    @events = Event.all
  end
 
   def show
     @event = Event.find(params[:id])
+  end
+
+  def shared_show
+    @event = Event.find_by!(share_token: params[:share_token])
     @message = Message.new
+    render :show
   end
 
   def edit

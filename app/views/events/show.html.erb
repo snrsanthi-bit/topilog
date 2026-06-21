@@ -1,5 +1,12 @@
 <h1>イベント詳細</h1>
-
+<button
+  type="button"
+  onclick="
+    navigator.clipboard.writeText('<%= shared_event_url(@event.share_token) %>');
+    alert('共有URLをコピーしました');
+  ">
+  共有URLをコピー
+</button>
 <p>
   タイトル: <%= @event.title %>
 </p>
