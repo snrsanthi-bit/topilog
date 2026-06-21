@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "share/:share_token", to: "events#shared_show",  as: :shared_event
   get 'events/new'
   devise_for :users
   root "static_pages#top"
