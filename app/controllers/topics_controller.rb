@@ -21,6 +21,15 @@ class TopicsController < ApplicationController
     @topic = @event.topics.find(params[:id])
   end
 
+  def destroy
+    @event = current_user.events.find(params[:event_id])
+    @topic = @event.topics.find(params[:id])
+
+    @topic.destroy
+
+    redirect_to edit_event_path(@event), notice: "話題を削除しました"
+  end
+
   private
 
   def topic_params

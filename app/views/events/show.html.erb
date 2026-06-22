@@ -1,58 +1,113 @@
-<h1>イベント詳細</h1>
-<button
-  type="button"
-  onclick="
-    navigator.clipboard.writeText('<%= shared_event_url(@event.share_token) %>');
-    alert('共有URLをコピーしました');
-  ">
-  共有URLをコピー
-</button>
-<p>
-  タイトル: <%= @event.title %>
-</p>
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4">
+  <div class="flex justify-between items-start">
 
-<h2>話題一覧</h2>
+    <div>
+      <h1 class="font-headline-md text-headline-md font-bold">
+        <%= @event.title %>
+      </h1>
 
-<% @event.topics.each do |topic| %>
-  <div>
-    <%= link_to topic.name, event_topic_path(@event, topic) %>
+      <p class="text-on-surface-variant mt-2">
+        投稿者: <%= @event.user.name %>
+      </p>
+    </div>
 
-    <% if topic.learning? %>
-      （学び）
-    <% else %>
-      （困りごと）
-    <% end %>
+    <div class="flex gap-2">
+
+      <button
+        type="button"
+        onclick="
+          navigator.clipboard.writeText('<%= shared_event_url(@event.share_token) %>');
+          alert('共有URLをコピーしました');
+        "
+        class="px-3 py-2 rounded-lg border border-outline-variant">
+        共有
+      </button>
+
+      <% if user_signed_in? && current_user == @event.user %>
+        <%= link_to "編集",
+                    edit_event_path(@event),
+                    class: "px-3 py-2 rounded-lg border border-outline-variant" %>
+      <% end %>
+
+    </div>
+
   </div>
-<% end %>
+</div>
 
-<h2>ログ一覧</h2>
 
-<% @event.messages.each do |message| %>
+<div class="grid md:grid-cols-3 gap-6">
+
   <div>
-    <p><%= message.speaker_name %></p>
-    <p><%= message.content %></p>
-    <p><%= message.posted_at %></p>
+    <h2 class="font-headline-md mb-4">
+      関連トピック
+    </h2>
+
+    <div class="grid grid-cols-2 gap-2">
+
+      <% @event.topics.each do |topic| %>
+
+        <%= link_to event_topic_path(@event, topic),
+                    class: "block rounded-lg border border-outline-variant px-4 py-3 bg-primary-fixed hover:shadow-md transition-all" do %>
+
+          <div class="flex justify-between items-center">
+
+            <span class="font-medium">
+              <%= topic.name %>
+            </span>
+
+            <% if topic.learning? %>
+              <span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">
+                学び
+              </span>
+            <% else %>
+              <span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-medium">
+                困りごと
+              </span>
+            <% end %>
+
+          </div>
+
+        <% end %>
+
+      <% end %>
+
+    </div>
   </div>
-<% end %>
 
-<p>
-  投稿者: <%= @event.user.name %>
-</p>
+  <div class="md:col-span-2">
 
-<% if user_signed_in? && current_user == @event.user %>
-  <h2>ログ貼り付け</h2>
+    <h2 class="font-headline-md mb-4">
+      ログ一覧
+    </h2>
 
-  <%= form_with url: event_messages_path(@event) do %>
-    <%= text_area_tag :log_text %>
-    <%= submit_tag "取り込み" %>
-  <% end %>
+    <div class="space-y-3">
 
-  <%= link_to "編集", edit_event_path(@event) %>
-  <%= button_to "削除",
-                @event,
-                method: :delete,
-                form: { data: { turbo_confirm: "本当に削除しますか？" } } %>
+      <% @event.messages.each do |message| %>
 
-  <%= link_to "話題登録", new_event_topic_path(@event) %>
-  <%= link_to "一覧へ戻る", events_path %>
-<% end %>
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4">
+
+          <div class="flex justify-between mb-2">
+
+            <p class="font-semibold">
+              <%= message.speaker_name %>
+            </p>
+
+            <p class="text-sm text-on-surface-variant">
+              <%= l message.posted_at, format: :short %>
+            </p>
+
+          </div>
+
+          <p>
+            <%= message.content %>
+          </p>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>

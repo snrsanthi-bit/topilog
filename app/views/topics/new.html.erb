@@ -1,18 +1,39 @@
-<h1>話題登録</h1>
+<div class="max-w-[640px] mx-auto px-gutter py-12">
 
-<%= form_with model: [@event, @topic] do |f| %>
-  <div>
-    <%= f.label :name, "話題名" %>
-    <%= f.text_field :name %>
+  <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6">
+
+    <h1 class="font-headline-lg text-headline-lg mb-6">
+      話題登録
+    </h1>
+
+    <%= form_with model: [@event, @topic], class: "space-y-6" do |f| %>
+
+      <div class="space-y-2">
+        <%= f.label :name,
+                    "話題名",
+                    class: "font-label-md text-on-surface-variant" %>
+
+        <%= f.text_field :name,
+            class: "w-full px-4 py-3 border border-outline-variant rounded-lg" %>
+      </div>
+
+      <div class="space-y-2">
+        <%= f.label :category,
+                    "分類",
+                    class: "font-label-md text-on-surface-variant" %>
+
+        <%= f.select :category,
+            [["学び", "learning"],
+             ["困りごと", "trouble"]],
+            {},
+            class: "w-full px-4 py-3 border border-outline-variant rounded-lg" %>
+      </div>
+
+      <%= f.submit "登録",
+          class: "px-6 py-3 rounded-lg bg-primary text-on-primary" %>
+
+    <% end %>
+
   </div>
 
-  <div>
-    <%= f.label :category, "分類" %>
-    <%= f.select :category, [
-      ["学び", "learning"],
-      ["困りごと", "trouble"]
-    ] %>
-  </div>
-
-  <%= f.submit "登録" %>
-<% end %>
+</div>
