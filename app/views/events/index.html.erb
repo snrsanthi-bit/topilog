@@ -3,7 +3,7 @@
 <% @events.each do |event| %>
   <div>
     <%= event.title %>
-    <p>投稿者: <%= event.user.email.split("@").first %></p>
+    <p>投稿者: <%= event.user.name %></p>
 
     <%= link_to "詳細", event_path(event) %>
   </div>

@@ -35,6 +35,10 @@
   </div>
 <% end %>
 
+<p>
+  投稿者: <%= @event.user.name %>
+</p>
+
 <% if user_signed_in? && current_user == @event.user %>
   <h2>ログ貼り付け</h2>
 
