@@ -1,8 +1,72 @@
-<h1>イベント編集</h1>
+<div class="max-w-[1024px] mx-auto px-gutter py-12">
 
-<%= form_with model: @event do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6">
 
-  <%= f.submit "更新" %>
+    <h1 class="font-headline-lg text-headline-lg mb-6">
+      イベント編集
+    </h1>
+
+    <%= form_with model: @event do |f| %>
+
+      <div class="space-y-2 mb-6">
+
+        <%= f.label :title,
+                    "イベント名",
+                    class: "font-label-md text-on-surface-variant" %>
+
+        <%= f.text_field :title,
+            class: "w-full px-4 py-3 border border-outline-variant rounded-lg" %>
+
+      </div>
+
+      <%= f.submit "更新",
+          class: "px-6 py-3 rounded-lg bg-primary text-on-primary" %>
+
+    <% end %>
+
+    <h2 class="font-headline-md text-headline-md mt-8 mb-4">
+  ログ貼り付け
+</h2>
+
+<%= form_with url: event_messages_path(@event) do %>
+  <%= text_area_tag :log_text, nil,
+      class: "w-full h-48 px-4 py-3 border border-outline-variant rounded-lg" %>
+
+  <%= submit_tag "取り込み",
+      class: "mt-4 px-6 py-3 rounded-lg bg-primary text-on-primary" %>
 <% end %>
+
+<h2 class="font-headline-md text-headline-md mt-8 mb-4">
+  関連トピック
+</h2>
+
+<div class="flex flex-wrap gap-2">
+
+  <% @event.topics.each do |topic| %>
+
+    <div class="flex items-center gap-2 px-3 py-2 border rounded-full bg-surface">
+
+      <span><%= topic.name %></span>
+
+      <%= button_to "×",
+                    event_topic_path(@event, topic),
+                    method: :delete,
+                    form: { data: { turbo_confirm: "削除しますか？" } },
+                    class: "text-red-500 text-xs" %>
+
+    </div>
+
+  <% end %>
+
+</div>
+
+<%= link_to "話題追加",
+            new_event_topic_path(@event),
+            class: "inline-block mt-4 text-primary hover:underline" %>
+
+
+  </div>
+
+</div>
+
+

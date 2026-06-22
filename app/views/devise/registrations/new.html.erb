@@ -1,34 +1,79 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div class="flex-grow flex items-center justify-center px-gutter py-8">
+<div class="w-full max-w-[440px]">
+<div class="login-card bg-surface-container-lowest border border-outline-variant rounded-xl p-8 md:p-10">
+<div class="text-center mb-8">
 
-  <div>
-    <p><%= f.label :name %></p>
-    <p><%= f.text_field :name %></p>
+<div class="text-center mb-8">
+  <h1 class="text-headline-md font-headline-md text-on-surface">
+    新規登録
+  </h1>
+</div>
+<!-- Central Registration Card -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-8 shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+ <%= render "devise/shared/error_messages",
+             resource: resource %>
+
+<%= form_for(resource, as: resource_name,
+             url: registration_path(resource_name),
+             html: { class: "space-y-6" }) do |f| %>
+<div class="space-y-2">
+  <%= f.label :name,
+              "ニックネーム",
+              class: "font-label-md text-label-md text-on-surface-variant block ml-1" %>
+
+  <%= f.text_field :name,
+      class: "w-full pl-4 pr-4 py-3 bg-surface-bright border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none text-body-md" %>
+</div>
+<div class="space-y-2">
+  <%= f.label :email,
+              "メールアドレス",
+              class: "font-label-md text-label-md text-on-surface-variant block ml-1" %>
+
+  <div class="relative group">
+    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">
+      mail
+    </span>
+
+    <%= f.email_field :email,
+        class: "w-full pl-12 pr-4 py-3 bg-surface-bright border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none text-body-md placeholder:text-outline-variant" %>
   </div>
-
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
+</div>
+<div class="space-y-2">
+  <%= f.label :password,
+              "パスワード(6文字以上)",
+              class: "font-label-md text-label-md text-on-surface-variant block ml-1" %>
+  <div class="relative group">
+    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
+    <%= f.password_field :password,
+        class: "w-full pl-12 pr-4 py-3 bg-surface-bright border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none text-body-md" %>
   </div>
-
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <% if @minimum_password_length %>
-      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
-    <% end %>
-    <p><%= f.password_field :password, autocomplete: "new-password" %></p>
+</div>
+<div class="space-y-2">
+  <%= f.label :password_confirmation,
+              "パスワード確認",
+              class: "font-label-md text-label-md text-on-surface-variant block ml-1" %>
+  <div class="relative group">
+    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">verified_user</span>
+    <%= f.password_field :password_confirmation,
+        class: "w-full pl-12 pr-4 py-3 bg-surface-bright border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none text-body-md" %>
   </div>
-
-  <div class="field">
-    <p><%= f.label :password_confirmation %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+</div>
+<div class="pt-2">
+  <%= f.submit "新規登録",
+      class: "w-full py-4 bg-primary-container text-on-primary font-headline-md text-body-md rounded-lg shadow-md hover:bg-primary transition-all active:scale-95" %>
+</div>
+</div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+<div class="mt-8 pt-8 border-t border-outline-variant/30 text-center">
+  <p class="font-body-sm text-on-surface-variant">
+    すでにアカウントをお持ちの方はこちら
+    <%= link_to "ログイン",
+                new_user_session_path,
+                class: "text-primary font-label-md hover:underline" %>
+  </p>
+</div>
+</div>
+</div>
+</div>
+</div>
