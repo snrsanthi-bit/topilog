@@ -1,10 +1,23 @@
 <div class="max-w-[1024px] mx-auto px-gutter py-12">
 
-  <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6">
+<div class="flex justify-between items-center mb-4">
 
-    <h1 class="font-headline-lg text-headline-lg mb-6">
-      イベント編集
-    </h1>
+  <h1 class="font-headline-lg text-headline-lg">
+    イベント編集
+  </h1>
+  <%= button_to "削除",
+                @event,
+                method: :delete,
+                form: {
+                  data: {
+                    turbo_confirm: "本当に削除しますか？"
+                  }
+                },
+                class: "px-6 py-3 rounded-lg bg-red-600 text-white" %>
+
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6">
 
     <%= form_with model: @event do |f| %>
 
@@ -68,5 +81,3 @@
   </div>
 
 </div>
-
-
