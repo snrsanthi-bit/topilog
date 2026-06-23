@@ -5,3 +5,7 @@ ja:
       signed_out: "ログアウトしました"
     registrations:
       signed_up: "アカウントを作成しました"
+    failure:
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
+      unauthenticated: "ログインまたはアカウント登録してください。"

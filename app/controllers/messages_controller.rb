@@ -2,7 +2,12 @@ class MessagesController < ApplicationController
   def create
     @event = current_user.events.find(params[:event_id])
 
-    log_text = params[:log_text]
+    log_text = params[:log_text].to_s
+    unless log_text.include?(" — ")
+      redirect_to @event,
+                  alert: "Discordログ形式で入力してください"
+      return
+    end
 
     lines = log_text.to_s.lines.map(&:chomp).reject(&:blank?)
 
