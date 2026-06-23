@@ -2,7 +2,13 @@ class MessagesController < ApplicationController
   def create
     @event = current_user.events.find(params[:event_id])
 
-    log_text = params[:log_text]
+    log_text = params[:log_text].to_s
+
+    unless log_text.include?(" — ")
+    redirect_to @event,
+                alert: "Discordログ形式で入力してください"
+    return
+  end
 
     lines = log_text.to_s.lines.map(&:chomp).reject(&:blank?)
 
@@ -12,6 +18,7 @@ class MessagesController < ApplicationController
     lines.each do |line|
       if line.match?(/^(.*?)\s—\s(?:\d{4}\/\d{2}\/\d{2}|昨日|\d{1,2}:\d{2})/)
         blocks << current_block.join("\n") if current_block.present?
+
         current_block = [line]
       else
         current_block << line

@@ -160,9 +160,21 @@
   </nav>
 </header>
 
-    <% if notice %>
-      <p><%= notice %></p>
-    <% end %>
+    <% if notice.present? %>
+  <div class="max-w-[1024px] mx-auto mt-4 px-gutter">
+    <div class="rounded-lg bg-green-100 text-green-700 px-4 py-3">
+      <%= notice %>
+    </div>
+  </div>
+<% end %>
+
+<% if alert.present? %>
+  <div class="max-w-[1024px] mx-auto mt-4 px-gutter">
+    <div class="rounded-lg bg-red-100 text-red-700 px-4 py-3">
+      <%= alert %>
+    </div>
+  </div>
+<% end %>
 
     <main>
       <%= yield %>
