@@ -1,8 +1,29 @@
-<h1>イベント作成</h1>
+<div class="max-w-[1024px] mx-auto px-gutter py-12">
 
-<%= form_with model: @event do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6">
 
-  <%= f.submit "作成" %>
-<% end %>
+    <h1 class="font-headline-lg text-headline-lg mb-6">
+      イベント作成
+    </h1>
+
+    <%= form_with model: @event do |f| %>
+
+      <div class="space-y-2 mb-6">
+
+        <%= f.label :title,
+                    "イベント名",
+                    class: "font-label-md text-on-surface-variant" %>
+
+        <%= f.text_field :title,
+            class: "w-full px-4 py-3 border border-outline-variant rounded-lg" %>
+
+      </div>
+
+      <%= f.submit "作成",
+          class: "px-6 py-3 rounded-lg bg-primary text-on-primary" %>
+
+    <% end %>
+
+  </div>
+
+</div>

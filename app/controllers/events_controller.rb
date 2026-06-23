@@ -9,7 +9,8 @@ class EventsController < ApplicationController
     @event = current_user.events.build(event_params)
 
     if @event.save
-      redirect_to root_path, notice: "イベントを作成しました"
+      redirect_to edit_event_path(@event),
+            notice: "イベントを作成しました"
     else
       render :new, status: :unprocessable_entity
     end

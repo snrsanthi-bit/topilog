@@ -27,6 +27,12 @@
         <%= link_to "編集",
                     edit_event_path(@event),
                     class: "px-3 py-2 rounded-lg border border-outline-variant" %>
+
+        <%= button_to "削除",
+                      event_path(@event),
+                      method: :delete,
+                      form: { data: { turbo_confirm: "削除しますか？" } },
+                      class: "px-3 py-2 rounded-lg border border-outline-variant" %>
       <% end %>
 
     </div>
