@@ -1,63 +1,26 @@
-<div class="flex-grow flex items-center justify-center px-gutter pt-20 pb-12">
-  <div class="w-full max-w-[440px]">
-    <div class="login-card bg-surface-container-lowest border border-outline-variant rounded-xl p-8 md:p-10">
-      <div class="text-center mb-8">
-        <h1 class="text-headline-md font-headline-md text-on-surface mb-2">
-          ログイン
-        </h1>
-      </div>
+<h2>Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name),
-             html: { class: "space-y-6" }) do |f| %>
-
-  <div class="space-y-2">
-    <%= f.label :email,
-                "メールアドレス",
-                class: "text-label-md font-label-md text-on-surface-variant block" %>
-
-    <div class="relative group">
-
-      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <span class="material-symbols-outlined text-outline">mail</span>
-      </div>
-
-      <%= f.email_field :email,
-      autofocus: true,
-      class: "block w-full pl-10 pr-3 py-3 bg-surface border border-outline-variant rounded-lg text-body-md font-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" %>
-
-    </div>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <p><%= f.label :email %></p>
+    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
   </div>
 
-  <div class="space-y-2">
-    <%= f.label :password,
-                "パスワード",
-                class: "text-label-md font-label-md text-on-surface-variant block" %>
-
-    <div class="relative group">
-
-      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <span class="material-symbols-outlined text-outline">lock</span>
-      </div>
-
-      <%= f.password_field :password,
-                           class: "block w-full pl-10 pr-3 py-3 bg-surface border border-outline-variant rounded-lg text-body-md font-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" %>
-
-    </div>
+  <div class="field">
+    <p><%= f.label :password %></p>
+    <p><%= f.password_field :password, autocomplete: "current-password" %></p>
   </div>
 
-  <%= f.submit "ログイン",
-               class: "w-full bg-secondary text-on-secondary font-headline-md text-body-md py-3.5 rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-sm" %>  
+  <% if devise_mapping.rememberable? %>
+    <div class="field">
+      <p><%= f.check_box :remember_me %></p>
+      <p><%= f.label :remember_me %></p>
+    </div>
+  <% end %>
 
+  <div class="actions">
+    <%= f.submit "Log in" %>
+  </div>
 <% end %>
-<div class="mt-8 pt-6 border-t border-outline-variant flex flex-col items-center gap-3">
 
-<div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant">
-<span class="">アカウントを持っていない方はこちら</span>
-<%= link_to "新規登録",
-            new_user_registration_path,
-            class: "text-primary font-label-md hover:underline" %>
-</div>
-</div>
-</div>
-</div>
-
+<%= render "devise/shared/links" %>

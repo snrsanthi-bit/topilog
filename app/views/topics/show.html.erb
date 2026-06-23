@@ -1,73 +1,16 @@
-<div class="max-w-[1024px] mx-auto px-gutter py-12">
+<h1><%= @topic.name %></h1>
 
-  <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 mb-8">
+<h2>関係者</h2>
 
-    <div class="flex items-center gap-3">
+<% @topic.messages.pluck(:speaker_name).uniq.each do |speaker| %>
+  <p><%= speaker %></p>
+<% end %>
 
-      <h1 class="font-headline-lg text-headline-lg">
-        <%= @topic.name %>
-      </h1>
+<h2>関連発言</h2>
 
-      <% if @topic.learning? %>
-        <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm">
-          学び
-        </span>
-      <% else %>
-        <span class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm">
-          困りごと
-        </span>
-      <% end %>
-
-    </div>
-
+<% @topic.messages.each do |message| %>
+  <div>
+    <p><%= message.speaker_name %></p>
+    <p><%= message.content %></p>
   </div>
-
-  <h2 class="font-headline-md text-headline-md mb-4">
-    関係者
-  </h2>
-
-  <div class="flex flex-wrap gap-2 mb-8">
-
-    <% @topic.messages.pluck(:speaker_name).uniq.each do |speaker| %>
-
-      <span class="px-3 py-2 rounded-full border border-outline-variant bg-white">
-        <%= speaker %>
-      </span>
-
-    <% end %>
-
-  </div>
-
-  <h2 class="font-headline-md text-headline-md mb-4">
-    関連発言
-  </h2>
-
-  <div class="space-y-4">
-
-    <% @topic.messages.each do |message| %>
-
-      <div class="bg-white rounded-xl border border-outline-variant p-4">
-
-        <div class="flex justify-between mb-2">
-
-          <p class="font-semibold">
-            <%= message.speaker_name %>
-          </p>
-
-          <p class="text-sm text-on-surface-variant">
-            <%= l message.posted_at, format: :short %>
-          </p>
-
-        </div>
-
-        <p>
-          <%= message.content %>
-        </p>
-
-      </div>
-
-    <% end %>
-
-  </div>
-
-</div>
+<% end %>

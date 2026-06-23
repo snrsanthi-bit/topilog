@@ -1,50 +1,10 @@
-<main class="max-w-[1024px] mx-auto px-margin py-12">
-
-<header class="mb-12">
-  <h1 class="font-headline-lg text-headline-lg text-on-surface">
-    イベント一覧
-  </h1>
-
-
-
-</header>
-<div class="space-y-4">
+<h1>イベント一覧</h1>
 
 <% @events.each do |event| %>
+  <div>
+    <%= event.title %>
+    <p>投稿者: <%= event.user.name %></p>
 
-  <div
-    onclick="location.href='<%= event_path(event) %>'"
-    class="cursor-pointer bg-surface-container-lowest rounded-xl border border-outline-variant p-6 hover:shadow-md transition-all"
-  >
-
-    <div class="flex justify-between items-center">
-
-      <div>
-        <h2 class="font-headline-md text-[20px] font-bold text-on-surface">
-          <%= event.title %>
-        </h2>
-
-        <p class="text-body-sm text-on-surface-variant mt-2">
-          投稿者: <%= event.user.name %>
-        </p>
-      </div>
-
-      <div class="text-right">
-        <p class="text-body-sm text-outline">
-          <%= l event.created_at, format: :short %>
-        </p>
-
-        <% if current_user == event.user %>
-          <%= link_to "✏️",
-                      edit_event_path(event),
-                      onclick: "event.stopPropagation();" %>
-        <% end %>
-      </div>
-
-    </div>
-
+    <%= link_to "詳細", event_path(event) %>
   </div>
-
 <% end %>
-
-</div>
