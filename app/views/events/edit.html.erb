@@ -37,18 +37,23 @@
 
     <% end %>
 
-    <h2 class="font-headline-md text-headline-md mt-8 mb-4">
+<h2 class="font-headline-md text-headline-md mt-8 mb-4">
   ログ貼り付け
 </h2>
 
+<p class="text-sm text-on-surface-variant mb-2">
+  Discordのチャットログをそのまま貼り付けてください
+</p>
+
 <%= form_with url: event_messages_path(@event) do %>
-  <%= text_area_tag :log_text, nil,
+  <%= text_area_tag :log_text,
+      nil,
+      placeholder: "ユーザー名 — 2026/06/23 20:00\n発言内容",
       class: "w-full h-48 px-4 py-3 border border-outline-variant rounded-lg" %>
 
   <%= submit_tag "取り込み",
       class: "mt-4 px-6 py-3 rounded-lg bg-primary text-on-primary" %>
 <% end %>
-
 <h2 class="font-headline-md text-headline-md mt-8 mb-4">
   関連トピック
 </h2>
