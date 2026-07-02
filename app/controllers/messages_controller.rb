@@ -3,13 +3,9 @@ class MessagesController < ApplicationController
     @event = current_user.events.find(params[:event_id])
 
     log_text = params[:log_text].to_s
-    unless log_text.include?(" — ")
-      redirect_to @event,
-                  alert: "Discordログ形式で入力してください"
-      return
-    end
+    return invalid_log unless log_text.include?(" — ")
 
-    lines = log_text.to_s.lines.map(&:chomp).reject(&:blank?)
+    lines = log_text.lines.map(&:chomp).reject(&:blank?)
 
     blocks = []
     current_block = []
@@ -31,17 +27,25 @@ class MessagesController < ApplicationController
       speaker_name, posted_at_text = header.split(" — ", 2)
       content = block.lines.drop(1).join
 
+      return invalid_log if speaker_name.blank? || posted_at_text.blank?
+
       posted_at = 
-      if posted_at_text.match?(/^\d{4}\/\d{2}\/\d{2}/)
+      if posted_at_text.match?(/^\d{4}\/\d{2}\/\d{2}\s\d{1,2}:\d{2}$/)
         Time.zone.parse(posted_at_text)
 
       elsif posted_at_text.match?(/^昨日\s\d{1,2}:\d{2}$/)
         time_text = posted_at_text.delete_prefix("昨日 ")
         Time.zone.parse("#{Date.yesterday} #{time_text}")
 
-      else 
+      elsif posted_at_text.match?(/^\d{1,2}:\d{2}$/) 
         Time.zone.parse("#{Date.current} #{posted_at_text}")
+
+      else
+        return invalid_log
       end
+
+      return invalid_log if posted_at.nil?
+
         message = @event.messages.create!(  
         speaker_name: speaker_name,
         content: content,
@@ -51,4 +55,13 @@ class MessagesController < ApplicationController
     end
     redirect_to @event
   end
+
+  private
+
+  def invalid_log
+    redirect_to @event,
+                alert: "Discordログ形式で入力してください"
+  end 
 end
+
+
